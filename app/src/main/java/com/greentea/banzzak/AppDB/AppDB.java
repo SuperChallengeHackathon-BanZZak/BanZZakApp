@@ -2,11 +2,14 @@ package com.greentea.banzzak.AppDB;
 
 import android.content.Context;
 
+import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
+import com.greentea.banzzak.AlarmDB.AlarmInfo;
 import com.greentea.banzzak.AlarmDB.AlarmInfoDAO;
 
+@Database(entities = {AlarmInfo.class}, version = 1)
 public abstract class AppDB extends RoomDatabase {
 
     public abstract AlarmInfoDAO alarmInfoDAO();
