@@ -38,4 +38,8 @@ dependencies {
 
     // floating action button
     implementation 'com.android.support:design:28.1.0'
+
+    // card view
+    implementation 'androidx.recyclerview:recyclerview:1.0.0'
+    implementation "com.google.android.material:material:1.0.0"
 }
