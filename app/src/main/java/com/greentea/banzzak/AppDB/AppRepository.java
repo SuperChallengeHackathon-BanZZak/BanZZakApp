@@ -53,7 +53,7 @@ public class AppRepository {
     }
 
     public void delete(AlarmInfo alarmInfo){
-        new deleteAsyncTask(alarmInfoDAO).execute();
+        new deleteAsyncTask(alarmInfoDAO).execute(alarmInfo);
     }
 
     public LiveData<List<AlarmInfo>> getAllAlarmInfo() {

@@ -47,7 +47,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                 Context context = v.getContext();
                 Intent intent = new Intent(context, AlarmSettingActivity.class);
 
-                intent.putExtra("alarm_info", list.get(position));
+                intent.putExtra("origin", list.get(position));
+                intent.putExtra("flag", 1);
                 ((Activity) context).startActivityForResult(intent, MODIFY_REQUEST_CODE);
             }
         });

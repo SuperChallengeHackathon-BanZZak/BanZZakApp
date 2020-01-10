@@ -7,8 +7,13 @@ import androidx.room.PrimaryKey;
 
 import java.io.Serializable;
 
-@Entity(tableName = "alarm_table", primaryKeys = {"hour", "minute"})
+@Entity(tableName = "alarm_table")
 public class AlarmInfo implements Serializable {
+
+    @PrimaryKey(autoGenerate = true)
+    @NonNull
+    @ColumnInfo(name = "id")
+    private int id;
 
     @NonNull
     @ColumnInfo(name = "hour")
@@ -21,6 +26,14 @@ public class AlarmInfo implements Serializable {
     @NonNull
     @ColumnInfo(name = "ampm")
     private String ampm;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     @NonNull
     public String getHour() {
