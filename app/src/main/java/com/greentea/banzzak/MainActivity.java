@@ -10,10 +10,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.greentea.banzzak.Adapter.RecyclerViewAdapter;
 import com.greentea.banzzak.AlarmDB.AlarmInfo;
+import com.greentea.banzzak.Utils.Codes;
 import com.greentea.banzzak.ViewModel.AlarmViewModel;
 
 import java.lang.reflect.Array;
@@ -21,8 +23,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements RecyclerViewAdapter.OnListItemSelectedInterface{
-
-    final int TIME_SETTING_REQUEST_CODE = 1;
 
     FloatingActionButton addAlarmBtn;
     Intent intent;
@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
             @Override
             public void onClick(View v) {
                 intent = new Intent(MainActivity.this, AlarmSettingActivity.class);
-                startActivityForResult(intent, TIME_SETTING_REQUEST_CODE);
+                startActivityForResult(intent, Codes.TIME_SETTING_REQUEST_CODE);
             }
         });
     }
@@ -52,6 +52,18 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+
+        if(resultCode == Codes.NEW_ALARM_CODE){
+            AlarmInfo alarmInfo = (AlarmInfo) data.getSerializableExtra("alarm_info");
+            list.add(alarmInfo);
+            alarmViewModel.insert(alarmInfo);
+//            Toast.makeText(this, alarmInfo.getHour(), Toast.LENGTH_SHORT).show();
+        }
+        else if(resultCode == Codes.DELETE_THIS_ALARM){
+            AlarmInfo alarmInfo = (AlarmInfo) data.getSerializableExtra("alarm_info");
+            list.remove(alarmInfo);
+            alarmViewModel.delete(alarmInfo);
+        }
     }
 
     private void init(){
@@ -71,9 +83,10 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
                 adapter.setAlarms(alarmInfos);
 
                 list = new ArrayList<>();
-//                for(int i=0; i<alarmInfos.size(); i++){
-//                    list.add(alarmInfos.get(i));
-//                }
+
+                for(int i=0; i<alarmInfos.size(); i++){
+                    list.add(alarmInfos.get(i));
+                }
             }
         });
     }

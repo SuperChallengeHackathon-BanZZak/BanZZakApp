@@ -22,6 +22,7 @@ public class AlarmViewModel extends AndroidViewModel {
     }
 
     public void insert(AlarmInfo alarmInfo) {repository.insert(alarmInfo);}
+    public void delete(AlarmInfo alarmInfo) {}
     public void deleteAll() {repository.deleteAll();}
     public LiveData<List<AlarmInfo>> getAllAlarmInfo() {return allAlarmInfo;}
 }

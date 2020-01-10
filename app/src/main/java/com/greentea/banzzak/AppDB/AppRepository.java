@@ -52,7 +52,26 @@ public class AppRepository {
         }.execute();
     }
 
+    public void delete(AlarmInfo alarmInfo){
+        new deleteAsyncTask(alarmInfoDAO).execute();
+    }
+
     public LiveData<List<AlarmInfo>> getAllAlarmInfo() {
         return allAlarmInfo;
+    }
+
+    private static class deleteAsyncTask extends AsyncTask<AlarmInfo, Void, Void>{
+
+        private AlarmInfoDAO alarmInfoDAO;
+
+        deleteAsyncTask(AlarmInfoDAO dao){
+            alarmInfoDAO = dao;
+        }
+
+        @Override
+        protected Void doInBackground(AlarmInfo... alarmInfos) {
+            alarmInfoDAO.deleteAlarm(alarmInfos[0]);
+            return null;
+        }
     }
 }
