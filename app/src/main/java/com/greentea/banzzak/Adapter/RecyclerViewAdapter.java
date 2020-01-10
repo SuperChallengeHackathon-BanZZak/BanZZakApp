@@ -47,7 +47,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                 Context context = v.getContext();
                 Intent intent = new Intent(context, AlarmSettingActivity.class);
 
-                intent.putExtra("alarmInfo", list.get(position));
+                intent.putExtra("alarm_info", list.get(position));
                 ((Activity) context).startActivityForResult(intent, MODIFY_REQUEST_CODE);
             }
         });
@@ -77,8 +77,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     }
 
     public void setAlarms(List<AlarmInfo> alarms){
-        list = alarms;
-//        notifyDataSetChanged();
+        this.list = alarms;
+        notifyDataSetChanged();
     }
 
     public static class ItemViewHolder extends RecyclerView.ViewHolder {
@@ -92,8 +92,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         }
 
         void onBind(AlarmInfo alarmInfo){
-            tv1.setText(alarmInfo.getAlarmName());
-            tv2.setText(alarmInfo.getAlarmTime());
+            tv1.setText(alarmInfo.getHour() + " : " + alarmInfo.getMin());
+            tv2.setText(alarmInfo.getAmpm());
         }
     }
 }

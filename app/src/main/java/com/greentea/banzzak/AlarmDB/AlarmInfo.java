@@ -7,33 +7,45 @@ import androidx.room.PrimaryKey;
 
 import java.io.Serializable;
 
-@Entity(tableName = "alarm_table")
+@Entity(tableName = "alarm_table", primaryKeys = {"hour", "minute"})
 public class AlarmInfo implements Serializable {
 
-    @PrimaryKey
     @NonNull
-    @ColumnInfo(name = "alarmName")
-    private String alarmName;
+    @ColumnInfo(name = "hour")
+    private String hour;
 
     @NonNull
-    @ColumnInfo(name = "alarmTime")
-    private String alarmTime;
+    @ColumnInfo(name = "minute")
+    private String min;
 
     @NonNull
-    public String getAlarmName() {
-        return alarmName;
+    @ColumnInfo(name = "ampm")
+    private String ampm;
+
+    @NonNull
+    public String getHour() {
+        return hour;
     }
 
-    public void setAlarmName(@NonNull String alarmName) {
-        this.alarmName = alarmName;
+    public void setHour(@NonNull String hour) {
+        this.hour = hour;
     }
 
     @NonNull
-    public String getAlarmTime() {
-        return alarmTime;
+    public String getMin() {
+        return min;
     }
 
-    public void setAlarmTime(@NonNull String alarmTime) {
-        this.alarmTime = alarmTime;
+    public void setMin(@NonNull String min) {
+        this.min = min;
+    }
+
+    @NonNull
+    public String getAmpm() {
+        return ampm;
+    }
+
+    public void setAmpm(@NonNull String ampm) {
+        this.ampm = ampm;
     }
 }
