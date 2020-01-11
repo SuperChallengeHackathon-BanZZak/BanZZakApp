@@ -3,6 +3,7 @@
     package="com.greentea.banzzak">
 
     <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.CAMERA"/>
 
     <application
         android:allowBackup="true"
@@ -15,7 +16,13 @@
         <receiver
             android:name=".Receiver.AlarmReceiver"
             android:enabled="true"
-            android:exported="true"></receiver>
+            android:exported="true">
+
+            <intent-filter>
+                <action android:name="android.intent.action.sec"/>
+            </intent-filter>
+
+        </receiver>
 
         <activity android:name=".MainActivity">
             <intent-filter>
@@ -25,6 +32,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".AlarmSettingActivity" />
+        <activity android:name=".AlarmStartActivity"/>
     </application>
 
 </manifest>

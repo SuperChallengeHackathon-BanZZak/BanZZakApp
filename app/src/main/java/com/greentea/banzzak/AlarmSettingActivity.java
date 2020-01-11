@@ -1,6 +1,10 @@
 package com.greentea.banzzak;
 
+import android.app.Activity;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
@@ -12,7 +16,10 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.greentea.banzzak.AlarmDB.AlarmInfo;
+import com.greentea.banzzak.Receiver.AlarmReceiver;
 import com.greentea.banzzak.Utils.Codes;
+
+import java.util.Calendar;
 
 public class AlarmSettingActivity extends AppCompatActivity {
 
@@ -20,6 +27,11 @@ public class AlarmSettingActivity extends AppCompatActivity {
     TimePicker timePicker;
     int hour, min, flag;
     AlarmInfo alarmInfo;
+    AlarmManager alarmManager;
+    Calendar calendar;
+    Intent receiverIntent;
+    PendingIntent pendingIntent;
+    long time;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -56,7 +68,9 @@ public class AlarmSettingActivity extends AppCompatActivity {
                 Intent intent = new Intent();
                 intent.putExtra("alarm_info", alarmInfo);
 
+                makeAlarm(hour, min);
                 setResult(Codes.NEW_ALARM_CODE, intent);
+
                 finish();
             }
         });
@@ -96,5 +110,50 @@ public class AlarmSettingActivity extends AppCompatActivity {
 
     public String getAmpm(){
         return hour < 12 ? "AM" : "PM";
+    }
+
+    private void makeAlarm(int hour, int min){
+
+        alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+        calendar = Calendar.getInstance();
+
+        receiverIntent = new Intent(getBaseContext(), AlarmReceiver.class);
+
+        SharedPreferences sharedPreferences = getSharedPreferences("alarms", Activity.MODE_PRIVATE);
+
+        if (Build.VERSION.SDK_INT < 23) {
+            calendar.set(Calendar.HOUR_OF_DAY, hour);
+            calendar.set(Calendar.MINUTE, min);
+            calendar.set(Calendar.SECOND, 0);
+        }
+        // 23 이상
+        else {
+            calendar.set(Calendar.HOUR_OF_DAY, hour);
+            calendar.set(Calendar.MINUTE, min);
+            calendar.set(Calendar.SECOND, 0);
+        }
+
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+
+        editor.putInt("hour", hour);
+        editor.putInt("min", min);
+        editor.commit();
+
+        time = calendar.getTimeInMillis();
+
+        pendingIntent = PendingIntent.getBroadcast(this, Codes.ALARM_REQUEST_CODE, receiverIntent,
+                PendingIntent.FLAG_UPDATE_CURRENT);
+
+        if (Build.VERSION.SDK_INT < 23) {
+            if (Build.VERSION.SDK_INT >= 19) {
+                alarmManager.setExact(AlarmManager.RTC_WAKEUP, time, pendingIntent);
+            }
+            else {
+                alarmManager.set(AlarmManager.RTC_WAKEUP, time, pendingIntent);
+            }
+        }
+        else {
+            alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, time, pendingIntent);
+        }
     }
 }
