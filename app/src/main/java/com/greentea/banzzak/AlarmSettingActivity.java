@@ -60,8 +60,6 @@ public class AlarmSettingActivity extends AppCompatActivity {
                     min = timePicker.getCurrentMinute();
                 }
 
-                Toast.makeText(AlarmSettingActivity.this, getHour() + " : " + getMin(), Toast.LENGTH_SHORT).show();
-
                 alarmInfo.setHour(getHour());
                 alarmInfo.setMin(getMin());
                 alarmInfo.setAmpm(getAmpm());
@@ -71,6 +69,7 @@ public class AlarmSettingActivity extends AppCompatActivity {
 
                 makeAlarm(hour, min, alarmInfo.getId());
 //                Toast.makeText(AlarmSettingActivity.this, "" + alarmInfo.getId(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(AlarmSettingActivity.this, getHour() + ":" + getMin() + " " + getAmpm() + "에 알람이 울립니다.", Toast.LENGTH_SHORT).show();
                 setResult(Codes.NEW_ALARM_CODE, intent);
 
                 finish();
@@ -123,8 +122,6 @@ public class AlarmSettingActivity extends AppCompatActivity {
         calendar = Calendar.getInstance();
 
         receiverIntent = new Intent(this, AlarmReceiver.class);
-
-        SharedPreferences sharedPreferences = getSharedPreferences("alarms", Activity.MODE_PRIVATE);
 
         if (Build.VERSION.SDK_INT < 23) {
             calendar.set(Calendar.HOUR_OF_DAY, hour);

@@ -32,6 +32,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
     private RecyclerViewAdapter adapter;
 
     private ArrayList<AlarmInfo> list;
+    private int maxn = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +46,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
             public void onClick(View v) {
                 intent = new Intent(MainActivity.this, AlarmSettingActivity.class);
                 AlarmInfo alarmInfo = new AlarmInfo();
-                alarmInfo.setId(list.size() + 1);
+                alarmInfo.setId(maxn);
                 intent.putExtra("flag", 2);
                 intent.putExtra("origin", alarmInfo);
                 startActivityForResult(intent, Codes.TIME_SETTING_REQUEST_CODE);
@@ -88,8 +89,12 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
 
                 list = new ArrayList<>();
 
+                maxn = 0;
                 for(int i=0; i<alarmInfos.size(); i++){
                     list.add(alarmInfos.get(i));
+                    if(maxn < alarmInfos.get(i).getId()){
+                        maxn = alarmInfos.get(i).getId();
+                    }
                 }
             }
         });
