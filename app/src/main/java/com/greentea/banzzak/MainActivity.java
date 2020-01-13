@@ -45,6 +45,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
             public void onClick(View v) {
                 intent = new Intent(MainActivity.this, AlarmSettingActivity.class);
                 AlarmInfo alarmInfo = new AlarmInfo();
+                alarmInfo.setId(list.size() + 1);
                 intent.putExtra("flag", 2);
                 intent.putExtra("origin", alarmInfo);
                 startActivityForResult(intent, Codes.TIME_SETTING_REQUEST_CODE);
@@ -64,7 +65,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
         }
         else if(resultCode == Codes.DELETE_THIS_ALARM){
             AlarmInfo alarmInfo = (AlarmInfo) data.getSerializableExtra("delete_this");
-            list.remove(alarmInfo);
+            //list.remove(alarmInfo);
             alarmViewModel.delete(alarmInfo);
         }
     }

@@ -10,7 +10,7 @@ import java.io.Serializable;
 @Entity(tableName = "alarm_table")
 public class AlarmInfo implements Serializable {
 
-    @PrimaryKey(autoGenerate = true)
+    @PrimaryKey(autoGenerate = false)
     @NonNull
     @ColumnInfo(name = "id")
     private int id;
