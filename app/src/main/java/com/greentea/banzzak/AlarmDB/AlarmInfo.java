@@ -6,6 +6,7 @@ import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
 import java.io.Serializable;
+import java.util.Date;
 
 @Entity(tableName = "alarm_table")
 public class AlarmInfo implements Serializable {
@@ -26,6 +27,11 @@ public class AlarmInfo implements Serializable {
     @NonNull
     @ColumnInfo(name = "ampm")
     private String ampm;
+
+//    // 날짜 저장하기
+//    @NonNull
+//    @ColumnInfo(name = "date")
+//    private String date;
 
     public int getId() {
         return id;
