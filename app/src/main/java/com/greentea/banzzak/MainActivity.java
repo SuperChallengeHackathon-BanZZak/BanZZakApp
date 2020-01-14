@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
@@ -34,6 +35,8 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
     private ArrayList<AlarmInfo> list;
     private int maxn = 0;
 
+    SharedPreferences sharedPreferences;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,7 +49,9 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
             public void onClick(View v) {
                 intent = new Intent(MainActivity.this, AlarmSettingActivity.class);
                 AlarmInfo alarmInfo = new AlarmInfo();
+                maxn = findMax();
                 alarmInfo.setId(maxn);
+//                Toast.makeText(MainActivity.this, "" + maxn, Toast.LENGTH_SHORT).show();
                 intent.putExtra("flag", 2);
                 intent.putExtra("origin", alarmInfo);
                 startActivityForResult(intent, Codes.TIME_SETTING_REQUEST_CODE);
@@ -89,12 +94,8 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
 
                 list = new ArrayList<>();
 
-                maxn = 0;
                 for(int i=0; i<alarmInfos.size(); i++){
                     list.add(alarmInfos.get(i));
-                    if(maxn < alarmInfos.get(i).getId()){
-                        maxn = alarmInfos.get(i).getId();
-                    }
                 }
             }
         });
@@ -103,5 +104,19 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
     @Override
     public void onItemSelected(View v, int pos) {
         RecyclerViewAdapter.ItemViewHolder viewHolder = (RecyclerViewAdapter.ItemViewHolder)recyclerView.findViewHolderForAdapterPosition(pos);
+    }
+
+    public int findMax(){
+        int ret = 0;
+
+        sharedPreferences = getSharedPreferences("setting", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+
+        ret = sharedPreferences.getInt("num", 0);
+        editor.putInt("num", ret+1);
+
+        editor.commit();
+
+        return ret;
     }
 }
