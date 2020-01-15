@@ -15,4 +15,24 @@
         android:layout_height="wrap_content"
         android:text="destroy_service"/>
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="100dp"/>
+
+    <Button
+        android:id="@+id/upButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="up"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="100dp"/>
+
+    <Button
+        android:id="@+id/downButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="down"/>
+
 </LinearLayout>
