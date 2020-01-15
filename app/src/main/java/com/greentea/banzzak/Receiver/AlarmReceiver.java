@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.PowerManager;
 
 import com.greentea.banzzak.AlarmStartActivity;
+import com.greentea.banzzak.Service.AlarmBellService;
 
 public class AlarmReceiver extends BroadcastReceiver {
 
