@@ -3,7 +3,7 @@
     package="com.greentea.banzzak">
 
     <uses-permission android:name="android.permission.WAKE_LOCK" />
-    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
 
@@ -14,16 +14,18 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <service
+            android:name=".Service.AlarmBellService"
+            android:enabled="true"
+            android:exported="true"></service>
 
         <receiver
             android:name=".Receiver.AlarmReceiver"
             android:enabled="true"
             android:exported="true">
-
             <intent-filter>
-                <action android:name="android.intent.action.sec"/>
+                <action android:name="android.intent.action.sec" />
             </intent-filter>
-
         </receiver>
 
         <activity
@@ -35,11 +37,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity android:name=".MainActivity"/>
+        <activity android:name=".MainActivity" />
         <activity android:name=".AlarmSettingActivity" />
-        <activity android:name=".AlarmStartActivity"/>
-
+        <activity android:name=".AlarmStartActivity" />
     </application>
 
 </manifest>
