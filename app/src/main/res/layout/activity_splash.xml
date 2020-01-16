@@ -5,9 +5,40 @@
     android:background="@drawable/splash_background">
 
     <ImageView
-        android:id="@+id/splash_image"
-        android:layout_width="wrap_content"
+        android:id="@+id/logo"
+        android:layout_width="250dp"
+        android:layout_height="250dp"
+        android:src="@drawable/logo_text"
+        android:layout_centerInParent="true"/>
+
+    <ImageView
+        android:id="@+id/text"
+        android:layout_below="@id/logo"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:src="@drawable/splash"/>
+        android:src="@drawable/text1"
+        android:layout_centerHorizontal="true"/>
+
+    <ProgressBar
+        android:id="@+id/right2left"
+        style="@android:style/Widget.DeviceDefault.ProgressBar.Horizontal"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_toLeftOf="@+id/text"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="-2dp"
+        android:layout_marginTop="455dp"
+        android:layout_marginRight="-1dp" />
+
+    <ProgressBar
+        android:id="@+id/left2right"
+        style="@android:style/Widget.DeviceDefault.ProgressBar.Horizontal"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="-3dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="490dp"
+        android:layout_toRightOf="@+id/text" />
 
 </RelativeLayout>
