@@ -122,6 +122,7 @@ public class AlarmSettingActivity extends AppCompatActivity {
         calendar = Calendar.getInstance();
 
         receiverIntent = new Intent(this, AlarmReceiver.class);
+        receiverIntent.putExtra("alarm_id", alarmId);
 
         if (Build.VERSION.SDK_INT < 23) {
             calendar.set(Calendar.HOUR_OF_DAY, hour);

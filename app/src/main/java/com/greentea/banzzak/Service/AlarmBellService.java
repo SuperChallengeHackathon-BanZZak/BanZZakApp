@@ -2,6 +2,7 @@ package com.greentea.banzzak.Service;
 
 import android.app.Service;
 import android.content.Intent;
+import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.IBinder;
 import android.provider.MediaStore;
@@ -11,6 +12,7 @@ import com.greentea.banzzak.R;
 public class AlarmBellService extends Service {
 
     MediaPlayer mp;
+    AudioManager audioManager;
 
     public AlarmBellService() {
     }
@@ -25,8 +27,8 @@ public class AlarmBellService extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
-        mp = MediaPlayer.create(this, R.raw.sample);
-        mp.setLooping(false);
+        mp = MediaPlayer.create(this, R.raw.sample1);
+        mp.setLooping(true);
     }
 
     @Override
