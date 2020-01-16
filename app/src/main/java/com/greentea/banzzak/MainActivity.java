@@ -10,6 +10,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
@@ -26,7 +28,7 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity implements RecyclerViewAdapter.OnListItemSelectedInterface{
 
     FloatingActionButton addAlarmBtn;
-    Intent intent;
+    Intent intent, chk;
 
     private AlarmViewModel alarmViewModel;
     private RecyclerView recyclerView;
@@ -43,6 +45,16 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
         setContentView(R.layout.activity_main);
 
         init();
+
+        chk = getIntent();
+        int finishedId = -1;
+        if(chk != null){
+            finishedId = chk.getIntExtra("finished_alarm", 0);
+        }
+
+        if(finishedId != -1){
+            
+        }
 
         addAlarmBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -118,5 +130,23 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
         editor.commit();
 
         return ret;
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.cnt:
+                Intent intent = new Intent(MainActivity.this, PointActivity.class);
+                startActivityForResult(intent,123);
+                return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 }

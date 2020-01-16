@@ -40,6 +40,7 @@
         <activity android:name=".MainActivity" />
         <activity android:name=".AlarmSettingActivity" />
         <activity android:name=".AlarmStartActivity" />
+        <activity android:name=".PointActivity" />
     </application>
 
 </manifest>
