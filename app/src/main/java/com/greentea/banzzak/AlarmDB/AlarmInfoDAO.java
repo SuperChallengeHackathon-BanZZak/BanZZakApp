@@ -21,6 +21,9 @@ public interface AlarmInfoDAO {
     @Delete
     void deleteAlarm(AlarmInfo alarmInfo);
 
+    @Query("DELETE FROM alarm_table WHERE :id = id")
+    void deleteByID(int id);
+
     @Query("SELECT * FROM alarm_table ORDER BY hour and minute ASC")
     LiveData<List<AlarmInfo>> getAllAlarm();
 
